@@ -16,8 +16,8 @@ public sealed class DiagnosisWarningForm : Form
         Text = "故障诊断与预警提示";
         StartPosition = FormStartPosition.CenterParent;
         AutoScaleMode = AutoScaleMode.Dpi;
-        MinimumSize = new Size(980, 620);
-        Size = new Size(1080, 700);
+        MinimumSize = new Size(1220, 760);
+        Size = new Size(1420, 860);
         BackColor = Color.FromArgb(244, 247, 252);
 
         var root = new TableLayoutPanel
@@ -25,13 +25,13 @@ public sealed class DiagnosisWarningForm : Form
             Dock = DockStyle.Fill,
             ColumnCount = 1,
             RowCount = 4,
-            Padding = new Padding(20),
+            Padding = new Padding(18),
             BackColor = BackColor
         };
-        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 120));
-        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 112));
+        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 150));
+        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 150));
         root.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 64));
+        root.RowStyles.Add(new RowStyle(SizeType.Absolute, 56));
 
         root.Controls.Add(BuildHeader(), 0, 0);
         root.Controls.Add(BuildMetricRow(), 0, 1);
@@ -45,88 +45,105 @@ public sealed class DiagnosisWarningForm : Form
     private Control BuildHeader()
     {
         var panel = CreateCardPanel();
-        panel.Padding = new Padding(22, 18, 22, 16);
+        panel.Padding = new Padding(20, 16, 20, 14);
 
         var layout = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
             ColumnCount = 2,
             RowCount = 1,
-            BackColor = Color.White
+            BackColor = Color.White,
+            Margin = new Padding(0)
         };
         layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-        layout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 360));
+        layout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 440));
 
         var left = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
             ColumnCount = 1,
             RowCount = 3,
-            BackColor = Color.White
+            BackColor = Color.White,
+            Margin = new Padding(0)
         };
-        left.RowStyles.Add(new RowStyle(SizeType.Absolute, 34));
-        left.RowStyles.Add(new RowStyle(SizeType.Absolute, 28));
+        left.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
+        left.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
         left.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
 
         var title = new Label
         {
             Dock = DockStyle.Fill,
+            AutoSize = false,
             Text = "故障诊断与预警提示",
-            Font = new Font("Microsoft YaHei UI", 18F, FontStyle.Bold),
+            Font = new Font("Microsoft YaHei UI", 17.6F, FontStyle.Bold),
             ForeColor = Color.FromArgb(25, 52, 100),
-            TextAlign = ContentAlignment.MiddleLeft
+            TextAlign = ContentAlignment.MiddleLeft,
+            Margin = new Padding(0)
         };
 
         var desc = new Label
         {
             Dock = DockStyle.Fill,
-            Text = "在不改变原有评价界面与功能的前提下，系统根据指标得分、扣分项和原始输入自动给出诊断结论、预警原因与处理建议。",
+            AutoSize = false,
+            Text = "系统根据指标得分、扣分项和原始输入自动给出诊断结论、预警原因与处理建议。",
             Font = new Font("Microsoft YaHei UI", 9.6F),
             ForeColor = Color.FromArgb(96, 108, 126),
-            TextAlign = ContentAlignment.MiddleLeft
+            TextAlign = ContentAlignment.MiddleLeft,
+            Margin = new Padding(0),
+            Padding = new Padding(0, 2, 0, 0)
         };
 
         _lblSummary = new Label
         {
             Dock = DockStyle.Fill,
+            AutoSize = false,
             Font = new Font("Microsoft YaHei UI", 10F),
             ForeColor = Color.FromArgb(72, 84, 102),
-            TextAlign = ContentAlignment.MiddleLeft
+            TextAlign = ContentAlignment.TopLeft,
+            Margin = new Padding(0),
+            Padding = new Padding(0, 6, 0, 0)
         };
 
         left.Controls.Add(title, 0, 0);
         left.Controls.Add(desc, 0, 1);
         left.Controls.Add(_lblSummary, 0, 2);
 
-        var right = new Panel
+        var right = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
+            ColumnCount = 1,
+            RowCount = 2,
             BackColor = Color.White,
-            Padding = new Padding(24, 26, 0, 0)
+            Margin = new Padding(0),
+            Padding = new Padding(26, 12, 0, 0)
         };
+        right.RowStyles.Add(new RowStyle(SizeType.Absolute, 54));
+        right.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
 
         _lblOverallStatus = new Label
         {
-            Dock = DockStyle.Top,
-            Height = 42,
-            Font = new Font("Microsoft YaHei UI", 11.5F, FontStyle.Bold),
+            Dock = DockStyle.Fill,
+            AutoSize = false,
+            Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Bold),
             TextAlign = ContentAlignment.MiddleCenter,
-            ForeColor = Color.White
+            ForeColor = Color.White,
+            Margin = new Padding(0),
+            Padding = new Padding(10, 0, 10, 0)
         };
 
         var updateTime = new Label
         {
-            Dock = DockStyle.Top,
-            Height = 32,
-            Margin = new Padding(0, 14, 0, 0),
+            Dock = DockStyle.Fill,
+            AutoSize = false,
             Text = $"生成时间：{DateTime.Now:yyyy-MM-dd HH:mm:ss}",
-            Font = new Font("Microsoft YaHei UI", 9.4F),
+            Font = new Font("Microsoft YaHei UI", 9.3F),
             ForeColor = Color.FromArgb(104, 115, 132),
-            TextAlign = ContentAlignment.MiddleCenter
+            TextAlign = ContentAlignment.MiddleCenter,
+            Margin = new Padding(0, 8, 0, 0)
         };
 
-        right.Controls.Add(updateTime);
-        right.Controls.Add(_lblOverallStatus);
+        right.Controls.Add(_lblOverallStatus, 0, 0);
+        right.Controls.Add(updateTime, 0, 1);
 
         layout.Controls.Add(left, 0, 0);
         layout.Controls.Add(right, 1, 0);
@@ -142,15 +159,15 @@ public sealed class DiagnosisWarningForm : Form
             ColumnCount = 3,
             RowCount = 1,
             BackColor = BackColor,
-            Margin = new Padding(0, 14, 0, 14)
+            Margin = new Padding(0, 12, 0, 12)
         };
         layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
         layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
         layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.34F));
 
         layout.Controls.Add(CreateMetricCard("已识别故障/异常", _report.CurrentFaultCount.ToString(), "当前已触发的明确异常", Color.FromArgb(230, 81, 0), 0), 0, 0);
-        layout.Controls.Add(CreateMetricCard("趋势预警", _report.EarlyWarningCount.ToString(), "即将发生故障的前兆", Color.FromArgb(245, 124, 0), 14), 1, 0);
-        layout.Controls.Add(CreateMetricCard("综合得分", _result.FinalScore.ToString("F2"), "维持原评价结果不变", Color.FromArgb(0, 122, 204), 14), 2, 0);
+        layout.Controls.Add(CreateMetricCard("趋势预警", _report.EarlyWarningCount.ToString(), "即将发生故障的前兆", Color.FromArgb(245, 124, 0), 12), 1, 0);
+        layout.Controls.Add(CreateMetricCard("综合得分", _result.FinalScore.ToString("F2"), "维持原评价结果不变", Color.FromArgb(0, 122, 204), 12), 2, 0);
         return layout;
     }
 
@@ -159,29 +176,47 @@ public sealed class DiagnosisWarningForm : Form
         _dgvDiagnosis = CreateGrid();
 
         var panel = CreateCardPanel();
-        panel.Padding = new Padding(18, 14, 18, 18);
+        panel.Padding = new Padding(14);
+
+        var layout = new TableLayoutPanel
+        {
+            Dock = DockStyle.Fill,
+            ColumnCount = 1,
+            RowCount = 3,
+            BackColor = Color.White,
+            Margin = new Padding(0)
+        };
+        layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
+        layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 24));
+        layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
 
         var title = new Label
         {
-            Dock = DockStyle.Top,
-            Height = 30,
+            Dock = DockStyle.Fill,
+            AutoSize = false,
             Text = "诊断与预警明细",
             Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold),
-            ForeColor = Color.FromArgb(25, 52, 100)
+            ForeColor = Color.FromArgb(25, 52, 100),
+            TextAlign = ContentAlignment.MiddleLeft,
+            Margin = new Padding(0)
         };
 
         var subTitle = new Label
         {
-            Dock = DockStyle.Top,
-            Height = 24,
+            Dock = DockStyle.Fill,
+            AutoSize = false,
             Text = "按严重程度排序展示触发依据、预警原因和建议处理措施。",
             Font = new Font("Microsoft YaHei UI", 9.5F),
-            ForeColor = Color.FromArgb(104, 115, 132)
+            ForeColor = Color.FromArgb(104, 115, 132),
+            TextAlign = ContentAlignment.MiddleLeft,
+            Margin = new Padding(0)
         };
 
-        panel.Controls.Add(_dgvDiagnosis);
-        panel.Controls.Add(subTitle);
-        panel.Controls.Add(title);
+        layout.Controls.Add(title, 0, 0);
+        layout.Controls.Add(subTitle, 0, 1);
+        layout.Controls.Add(_dgvDiagnosis, 0, 2);
+
+        panel.Controls.Add(layout);
         return panel;
     }
 
@@ -191,16 +226,7 @@ public sealed class DiagnosisWarningForm : Form
         {
             Dock = DockStyle.Fill,
             BackColor = BackColor,
-            Padding = new Padding(0, 10, 0, 0)
-        };
-
-        var note = new Label
-        {
-            Dock = DockStyle.Fill,
-            Text = "说明：该弹窗只负责新增诊断和预警提示，不改变首页录入、监控评价界面和原有评分/扣分展示方式。",
-            Font = new Font("Microsoft YaHei UI", 9.2F),
-            ForeColor = Color.FromArgb(104, 115, 132),
-            TextAlign = ContentAlignment.MiddleLeft
+            Padding = new Padding(0, 6, 0, 0)
         };
 
         var btnClose = new Button
@@ -221,16 +247,16 @@ public sealed class DiagnosisWarningForm : Form
         var buttonHost = new FlowLayoutPanel
         {
             Dock = DockStyle.Right,
-            Width = 136,
+            Width = 132,
             FlowDirection = FlowDirection.RightToLeft,
             WrapContents = false,
             BackColor = BackColor,
-            Padding = new Padding(0)
+            Padding = new Padding(0),
+            Margin = new Padding(0)
         };
         buttonHost.Controls.Add(btnClose);
 
         panel.Controls.Add(buttonHost);
-        panel.Controls.Add(note);
         return panel;
     }
 
@@ -269,13 +295,13 @@ public sealed class DiagnosisWarningForm : Form
 
         if (_dgvDiagnosis.Columns.Count > 0)
         {
-            _dgvDiagnosis.Columns[0].FillWeight = 10;
-            _dgvDiagnosis.Columns[1].FillWeight = 10;
+            _dgvDiagnosis.Columns[0].FillWeight = 11;
+            _dgvDiagnosis.Columns[1].FillWeight = 9;
             _dgvDiagnosis.Columns[2].FillWeight = 10;
-            _dgvDiagnosis.Columns[3].FillWeight = 18;
+            _dgvDiagnosis.Columns[3].FillWeight = 16;
             _dgvDiagnosis.Columns[4].FillWeight = 18;
-            _dgvDiagnosis.Columns[5].FillWeight = 20;
-            _dgvDiagnosis.Columns[6].FillWeight = 14;
+            _dgvDiagnosis.Columns[5].FillWeight = 18;
+            _dgvDiagnosis.Columns[6].FillWeight = 18;
         }
 
         ApplyRowStyles();
@@ -290,6 +316,7 @@ public sealed class DiagnosisWarningForm : Form
             row.DefaultCellStyle.ForeColor = GetSeverityColor(severity);
             row.DefaultCellStyle.SelectionForeColor = GetSeverityColor(severity);
             row.DefaultCellStyle.SelectionBackColor = GetSelectionBackColor(severity);
+            row.DefaultCellStyle.BackColor = GetRowBackColor(severity);
         }
     }
 
@@ -297,37 +324,58 @@ public sealed class DiagnosisWarningForm : Form
     {
         var panel = CreateCardPanel();
         panel.Margin = new Padding(marginLeft, 0, 0, 0);
-        panel.Padding = new Padding(16, 14, 16, 14);
+        panel.Padding = new Padding(14, 12, 14, 12);
+
+        var layout = new TableLayoutPanel
+        {
+            Dock = DockStyle.Fill,
+            ColumnCount = 1,
+            RowCount = 3,
+            BackColor = Color.White,
+            Margin = new Padding(0)
+        };
+        layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 24));
+        layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 40));
+        layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
 
         var titleLabel = new Label
         {
-            Dock = DockStyle.Top,
-            Height = 24,
+            Dock = DockStyle.Fill,
+            AutoSize = false,
             Text = title,
             Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Bold),
-            ForeColor = Color.FromArgb(55, 71, 92)
+            ForeColor = Color.FromArgb(55, 71, 92),
+            TextAlign = ContentAlignment.MiddleLeft,
+            Margin = new Padding(0)
         };
 
         var valueLabel = new Label
         {
-            Dock = DockStyle.Top,
-            Height = 38,
+            Dock = DockStyle.Fill,
+            AutoSize = false,
             Text = value,
-            Font = new Font("Microsoft YaHei UI", 20F, FontStyle.Bold),
-            ForeColor = accent
+            Font = new Font("Microsoft YaHei UI", 18.8F, FontStyle.Bold),
+            ForeColor = accent,
+            TextAlign = ContentAlignment.MiddleLeft,
+            Margin = new Padding(0)
         };
 
         var subTitleLabel = new Label
         {
             Dock = DockStyle.Fill,
+            AutoSize = false,
             Text = subTitle,
-            Font = new Font("Microsoft YaHei UI", 9F),
-            ForeColor = Color.FromArgb(109, 120, 136)
+            Font = new Font("Microsoft YaHei UI", 9.2F),
+            ForeColor = Color.FromArgb(109, 120, 136),
+            TextAlign = ContentAlignment.TopLeft,
+            Margin = new Padding(0),
+            Padding = new Padding(0, 2, 0, 0)
         };
 
-        panel.Controls.Add(subTitleLabel);
-        panel.Controls.Add(valueLabel);
-        panel.Controls.Add(titleLabel);
+        layout.Controls.Add(titleLabel, 0, 0);
+        layout.Controls.Add(valueLabel, 0, 1);
+        layout.Controls.Add(subTitleLabel, 0, 2);
+        panel.Controls.Add(layout);
         return panel;
     }
 
@@ -338,23 +386,35 @@ public sealed class DiagnosisWarningForm : Form
             Dock = DockStyle.Fill,
             ReadOnly = true,
             AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+            AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells,
             SelectionMode = DataGridViewSelectionMode.FullRowSelect,
             AllowUserToAddRows = false,
             AllowUserToDeleteRows = false,
+            AllowUserToResizeRows = false,
             MultiSelect = false,
             RowHeadersVisible = false,
             BackgroundColor = Color.White,
             BorderStyle = BorderStyle.None,
             GridColor = Color.FromArgb(230, 236, 245),
-            RowTemplate = { Height = 40 },
+            CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal,
             DefaultCellStyle = new DataGridViewCellStyle
             {
                 Font = new Font("Microsoft YaHei UI", 9.5F),
                 SelectionBackColor = Color.FromArgb(220, 235, 252),
                 SelectionForeColor = Color.Black,
-                Padding = new Padding(3)
+                Padding = new Padding(5, 4, 5, 4),
+                WrapMode = DataGridViewTriState.True,
+                Alignment = DataGridViewContentAlignment.TopLeft
             },
-            ColumnHeadersHeight = 38,
+            AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(250, 252, 255),
+                WrapMode = DataGridViewTriState.True,
+                Padding = new Padding(5, 4, 5, 4)
+            },
+            RowTemplate = { Height = 56 },
+            ColumnHeadersHeight = 42,
+            ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
             ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
             {
                 Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Bold),
@@ -362,7 +422,8 @@ public sealed class DiagnosisWarningForm : Form
                 ForeColor = Color.FromArgb(40, 52, 70),
                 SelectionBackColor = Color.FromArgb(231, 240, 252),
                 SelectionForeColor = Color.FromArgb(40, 52, 70),
-                Alignment = DataGridViewContentAlignment.MiddleLeft
+                Alignment = DataGridViewContentAlignment.MiddleLeft,
+                WrapMode = DataGridViewTriState.True
             },
             EnableHeadersVisualStyles = false
         };
@@ -405,6 +466,16 @@ public sealed class DiagnosisWarningForm : Form
             DiagnosisSeverity.Critical => Color.FromArgb(255, 235, 238),
             DiagnosisSeverity.Warning => Color.FromArgb(255, 243, 224),
             _ => Color.FromArgb(255, 248, 225)
+        };
+    }
+
+    private static Color GetRowBackColor(DiagnosisSeverity severity)
+    {
+        return severity switch
+        {
+            DiagnosisSeverity.Critical => Color.FromArgb(255, 249, 249),
+            DiagnosisSeverity.Warning => Color.FromArgb(255, 252, 247),
+            _ => Color.FromArgb(255, 253, 245)
         };
     }
 
